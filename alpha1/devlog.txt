@@ -20,3 +20,11 @@ transfering code to RPi and building/uploading using ino.
 transmitted data correctly so I have had to gibble it.
 -Goal for next time is to reconstruct the python end of the serial example I have been modifying to prove that the RPi 
 can spit out the values the Arduino is sending it, further proving that the one direction of communication functions.
+
+June 5 2017
+-Previously modified and tested RPi end of serial comms, found it to be at least partially working;
+the tentacle shield is getting values passed to the RPi albeit in a sloppy format for command line visualization
+-Wrap the serial communication protocol on the Python/RPi side into a class titled BAComms()
+-Port all workflow progress into GitHub, begin using this platform for tracking changes
+-Goal for next time is to better understand the Kivy language functions so I can incorporate a GUI which can
+manipulate actual data.
