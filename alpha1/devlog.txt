@@ -1,0 +1,6 @@
+April 27 2017
+Got the arduino tentacle sheild to start spitting out values over I2C.
+Compiled the first alpha assembly of the doser project.
+Began integrating the SerialUSB library with the tentacle async readings example from the Atlas code library.
+Goal for next round is to get the sensor data to pass from void(loop) into the SerialUSB class as a byte stream so
+it can be sent from the arduino to the RPi over USB. Finish implementing SerialUSB::sendSerialData() function
