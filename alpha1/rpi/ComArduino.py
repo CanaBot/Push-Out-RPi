@@ -69,7 +69,38 @@
 
 # =====================================
 
-#  Class definition: Bidirectional Asynchronous Communication: BAComms(object):
+# IMPORT THINGS THAT WILL BE NEEDED
+
+# =====================================
+
+import serial
+import time
+
+# ======================================
+
+# IMPORT REQUIRED KIVY ELEMENTS FOR THE GUI
+
+# ======================================
+
+from kivy.app import App
+
+from kivy.uix.button import Button
+from kivy.uix.tabbedpanel import TabbedPanel
+from kivy.uix.image import Image
+from kivy.uix.slider import Slider
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.anchorlayout import AnchorLayout
+
+from kivy.uix.behaviors import ToggleButtonBehavior
+
+from kivy.lang import Builder
+
+# =====================================
+
+#  CLASS FOR BIDIRECTIONAL ASYNCHRONOUS COMMUNICATION
+
+# =====================================
 
 class BAComms(object):
 
@@ -218,17 +249,91 @@ class BAComms(object):
 				x = ser.read()
 				msg = msg + x
 
-			self.displayDebug(msg)
-			print
+			# self.displayDebug(msg)
+			# print
 
 # ======================================
 
-#   Class definition: Doser GUI based on Kivy language and structure
+#   GUI CLASSES AND KIVY STRUCTURE
 
-class GUI(object):
+# ======================================
 
-	def __init__(self):
 
+class GUILayout(FloatLayout):
+	pass
+
+
+class DoserGUI(App):
+	def build(self):
+		return GUILayout
+
+
+Builder.load_string("""
+
+<GUILayout>:
+	size_hint: 1, 1
+	tab_pos: 'bottom_mid'
+	do_default_tab: False
+	
+	TabbedPanelItem:
+		text: 'Home'
+		FloatLayout:
+			AnchorLayout:
+				anchor_x: 'left'
+				anchor_y: 'top'
+				Image: 
+					source: "indica_logo.png"
+					
+			AnchorLayout:
+				anchor_x: 'center'
+				anchor_y: 'top'
+				Label:
+					text: 'System Status: '
+			
+			AnchorLayout:
+				anchor_x: 'right'
+				anchor_y: 'center'
+				Button:
+					label: 'Pump Override'
+					
+					
+			
+	TabbedPanelItem:
+		text: 'Temps'
+		BoxLayout:
+			Label:
+				text: 'Second tab content area'
+			Button:
+				text: 'Button that does nothing'
+				
+	TabbedPanelItem:
+		text: 'E.C.'
+		RstDocument:
+			text:
+                '\\n'.join(("Hello world", "-----------",
+                "You are in the third tab."))
+
+    TabbedPanelItem:
+        text: 'pH'
+        Label:
+            text: 'First tab content area'
+			
+    TabbedPanelItem:
+        text: 'D.O.'
+        BoxLayout:
+            Label:
+                text: 'Second tab content area'
+            Button:
+                text: 'Button that does nothing'
+				
+    TabbedPanelItem:
+        text: 'O.R.P.'
+        RstDocument:
+            text:
+                '\\n'.join(("Hello world", "-----------",
+                "You are in the third tab."))
+
+""")
 
 # ======================================
 
@@ -236,22 +341,22 @@ class GUI(object):
 
 # ======================================
 
-import serial
-import time
-
 # Special numbers used by BAComms() class to decode serial message
 
 startMarker = 254
 endMarker = 255
 specialByte = 253
 
+doserGUI = DoserGUI()
+doserGUI.run()
+
 # Create the objects for communication with the Arduino
 # NOTE the user must ensure that the next line refers to the correct comm port
 ser = serial.Serial("/dev/ttyACM0", 9600)
 a_comm =  BAComms(startMarker, endMarker, specialByte)
 
+# The Arduino will take a moment to reboot
 a_comm.waitForArduino()
-
 print "Arduino is ready"
 
 testData = []
