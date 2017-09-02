@@ -1,0 +1,30 @@
+April 27 2017
+Got the arduino tentacle sheild to start spitting out values over I2C.
+Compiled the first alpha assembly of the doser project.
+Began integrating the SerialUSB library with the tentacle async readings example from the Atlas code library.
+Goal for next round is to get the sensor data to pass from void(loop) into the SerialUSB class as a byte stream so
+it can be sent from the arduino to the RPi over USB. Finish implementing SerialUSB::sendSerialData() function
+
+May 4 2017
+-Migrated over to custom Eclipse build for programming due to frustrations with both Arduino IDE and Notepad++
+-Traced through getSerialData function to better understand its use
+-Began writing sendSerialData function, found that the String class in Arduino is very frustrating to use. Attempted 
+to convert Strings to jagged character array. So far unsuccessful. 
+-Task for next time: modify original Whitebox code to allow for jagged char array when writing sensor data.
+
+May 5 2017
+-Mostly completed sendSerialData function
+-unable to upload from Eclipse to Arduino directly, some kind of bootloader error that I can't work around. Have been 
+transfering code to RPi and building/uploading using ino.
+-Tested some of the code functionality using ino serial through SSH, the serial function will not print out the 
+transmitted data correctly so I have had to gibble it.
+-Goal for next time is to reconstruct the python end of the serial example I have been modifying to prove that the RPi 
+can spit out the values the Arduino is sending it, further proving that the one direction of communication functions.
+
+June 5 2017
+-Previously modified and tested RPi end of serial comms, found it to be at least partially working;
+the tentacle shield is getting values passed to the RPi albeit in a sloppy format for command line visualization
+-Wrap the serial communication protocol on the Python/RPi side into a class titled BAComms()
+-Port all workflow progress into GitHub, begin using this platform for tracking changes
+-Goal for next time is to better understand the Kivy language functions so I can incorporate a GUI which can
+manipulate actual data.

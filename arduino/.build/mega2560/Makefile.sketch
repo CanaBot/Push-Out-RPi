@@ -1,0 +1,14 @@
+
+
+
+
+
+.build/mega2560/src/Doser.cpp : src/Doser.ino
+	@mkdir -p .build/mega2560/src
+	@echo [93msrc/Doser.ino[0m
+	@/usr/local/bin/ino preproc  -o $@ $^
+
+
+all : .build/mega2560/src/Doser.cpp
+	@true
+
