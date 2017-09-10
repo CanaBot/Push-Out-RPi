@@ -93,7 +93,6 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.clock import Clock
-from kivy.graphics import Color, Rectangle
 
 from kivy.uix.behaviors import ToggleButtonBehavior
 
